@@ -6,6 +6,10 @@ import VueClipboard from 'vue-clipboard2'
 import "nprogress/nprogress.css";
 import VueMeta from "vue-meta";
 
+import 'ant-design-vue/dist/antd.css';
+import AntdVue from "ant-design-vue";
+Vue.use(AntdVue);
+
 Vue.use(VueClipboard)
 Vue.use(VueMeta);
 

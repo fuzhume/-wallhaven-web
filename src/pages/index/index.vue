@@ -1,10 +1,17 @@
 <template>
-    <div class="index">Index</div>
+    <div class="index">
+        <a-button type="primary" @click="handleClick">按钮</a-button>
+    </div>
 </template>
 
 <script>
 export default {
-    name: "index"
+    name: "index",
+    methods: {
+        handleClick(){
+            this.$message.success("欢迎使用")
+        }
+    }
 }
 </script>
 
