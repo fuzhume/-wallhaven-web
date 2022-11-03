@@ -1,24 +1,5 @@
-# vue-cli-start
+# 快速开发简单脚手架
 
-## Project setup
-```
-yarn install
-```
+本项目最高支持到 Node16，最低兼容到Node8！
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Node16下载地址：https://nodejs.org/dist/v16.9.1/
