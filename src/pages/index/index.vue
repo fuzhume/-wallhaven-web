@@ -1,10 +1,17 @@
 <template>
-    <div class="index">Index</div>
+    <div class="index">
+        <el-button @click="handleClick">你好</el-button>
+    </div>
 </template>
 
 <script>
 export default {
-    name: "index"
+    name: "index",
+    methods: {
+        handleClick(){
+            this.$message.success("你好！");
+        }
+    }
 }
 </script>
 
