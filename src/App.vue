@@ -1,37 +1,50 @@
 <template>
-    <div id="app">
+    <div id="app" @contextmenu.prevent>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-import nprogress from "./utils/nprogress";
-
 export default {
     metaInfo() {
         const {meta} = this.$route;
         const option = {
             title: process.env.VUE_APP_SYSTEM_VERSION,
-            titleTemplate: `${process.env.VUE_APP_SYSTEM_NAME} | %s`
+            titleTemplate: `%s | ${process.env.VUE_APP_SYSTEM_NAME}`
         }
 
         if (meta && meta.title) option.title = meta.title;
 
         return option;
     },
-    name: 'App',
-    components: {},
-    mounted() {
-        nprogress.start();
-        let t = setTimeout(() => {
-            clearTimeout(t);
-            t = null;
-            nprogress.done();
-        }, 1000)
-    }
+    name: 'App'
 }
 </script>
 
 <style lang="less">
+@import "assets/iconfont/iconfont.css";
 
+.hevue-imgpreview-wrap {
+    .he-img-wrap {
+        background-color: rgba(0, 0, 0, 0.75) !important;
+    }
+
+    .he-control-bar {
+        background-color: rgba(0, 0, 0, 1) !important;
+    }
+}
+
+::-webkit-scrollbar {
+    background-color: #ffffff;
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #dedede;
+
+    &:hover {
+        background-color: #555555;
+    }
+}
 </style>

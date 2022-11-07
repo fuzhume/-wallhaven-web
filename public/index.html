@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="beauty-scroll">
+<html lang="zh">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <style>
-        html, body, #app {
+        html, body {
             margin: 0;
-            padding: 0
+            padding: 0;
         }
     </style>
+    <script>
+        window.onload = function () {
+            document.documentElement.scrollTop = 0;  //ie下
+            document.body.scrollTop = 0;  //非ie
+        }
+    </script>
+    <script src="config.js"></script>
     <title><%= process.env.VUE_APP_NAME %></title>
     <!-- require cdn assets css -->
     <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>

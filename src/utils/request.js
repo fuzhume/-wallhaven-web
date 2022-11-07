@@ -23,7 +23,14 @@ instance.interceptors.request.use(
  */
 instance.interceptors.response.use(
     (response) => {
-        return response;
+        if (response.status === 200) {
+            if (response.data.code === 200) {
+                return response.data;
+            } else {
+                return Promise.reject(response.data.msg);
+            }
+        }
+        return Promise.reject(response.statusText);
     }
 );
 
@@ -48,11 +55,11 @@ const METHOD = {
 async function request(url, method, params, config) {
     switch (method) {
         case METHOD.GET:
-            return instance.get(url, { params, ...config });
+            return instance.get(url, {params, ...config});
         case METHOD.POST:
             return instance.post(url, params, config);
         default:
-            return instance.get(url, { params, ...config });
+            return instance.get(url, {params, ...config});
     }
 }
 
@@ -64,7 +71,7 @@ async function request(url, method, params, config) {
 function setAuthorization(auth, authType = AUTH_TYPE.BEARER) {
     switch (authType) {
         case AUTH_TYPE.BEARER:
-            Cookie.set(xsrfHeaderName, "Bearer " + auth.token, { expires: auth.expireAt });
+            Cookie.set(xsrfHeaderName, "Bearer " + auth.token, {expires: auth.expireAt});
             break;
         default:
             break;
@@ -101,4 +108,4 @@ function checkAuthorization(authType = AUTH_TYPE.BEARER) {
     return false;
 }
 
-export { METHOD, AUTH_TYPE, request, setAuthorization, removeAuthorization, checkAuthorization, xsrfHeaderName };
+export {METHOD, AUTH_TYPE, request, setAuthorization, removeAuthorization, checkAuthorization, xsrfHeaderName};

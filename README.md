@@ -1,11 +1,9 @@
-# 快速开发简单脚手架
+# Wallhaven 壁纸站 web 端口
 
-本项目最高支持到 Node16，最低兼容到Node8！
+本项目需要配合 wallhaven-api 共同使用！
 
-Node16下载地址：https://nodejs.org/dist/v16.9.1/
+![](_images/01.png)
 
-# 关于本分支
+![](_images/02.png)
 
-本分支基于主分支优化而来，添加了Antd Vue 1.x 支持（Vue2.0）
-
-参考文档：https://1x.antdv.com/docs/vue/introduce-cn/
+![](_images/03.png)

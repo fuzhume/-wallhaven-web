@@ -1,0 +1,37 @@
+{
+  "id": "3754326",
+  "name": "wallhaven-web",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2675116",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "1133840",
+      "name": "钻石",
+      "font_class": "zuanshi",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "4879732",
+      "name": "时钟",
+      "font_class": "shijian",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "5978743",
+      "name": "random-forest",
+      "font_class": "suiji",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    }
+  ]
+}
