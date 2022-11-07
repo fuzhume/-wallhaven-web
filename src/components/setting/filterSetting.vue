@@ -98,11 +98,11 @@ export default {
         }
     },
     computed: {
-        ...mapGetters("wallpaper", ["settingFilter"])
+        ...mapGetters("wallpaper", ["filterSetting"])
     },
     methods: {
-        ...mapMutations("wallpaper", ["setSettingFilter"]),
-        reset(){
+        ...mapMutations("wallpaper", ["setFilterSetting"]),
+        reset() {
             this.form = {
                 order: "desc",
                 sorting: "favorites",
@@ -126,8 +126,8 @@ export default {
         show() {
             this.reset();
 
-            const {settingFilter} = this;
-            if (settingFilter) this.form = settingFilter;
+            const {filterSetting} = this;
+            if (filterSetting) this.form = filterSetting;
 
             this.visible = true;
         },
@@ -170,14 +170,14 @@ export default {
         },
         handleFilter() {
             this.hide();
-            this.$bus.$emit("filter-wallpaper", this.form);
+            this.$bus.$emit("save-config", this.form);
         },
         handleRemove() {
             this.$confirm({
                 title: "删除确认",
                 content: "是否要删除自定义配置？删除后将使用默认配置！",
                 onOk: () => {
-                    this.setSettingFilter(null);
+                    this.setFilterSetting(null);
                     this.$message.success("已恢复默认设置");
                     this.handleFilter();
                 }
@@ -186,11 +186,9 @@ export default {
         handleSave() {
             this.$refs.form.validate((ok) => {
                 if (ok) {
-                    this.setSettingFilter(this.form);
+                    this.setFilterSetting(this.form);
                     this.$message.success("保存成功");
                     this.handleFilter();
-                } else {
-                    return false;
                 }
             })
         }

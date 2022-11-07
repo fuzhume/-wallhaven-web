@@ -1,5 +1,5 @@
-// eslint-disable-next-line no-undef
-const baseUrl = customConfig.apiUrl || process.env.VUE_APP_API_BASE_URL;
+const customSetting = JSON.parse(window.localStorage.getItem(process.env.VUE_APP_CUSTOM_SETTING_KEY)) || {};
+const baseUrl = customSetting.overwriteApiUrl || process.env.VUE_APP_API_BASE_URL;
 
 const api = {
     latest: baseUrl + "/wallhaven/latest",

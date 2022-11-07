@@ -28,14 +28,15 @@
         <a-layout-content class="content">
             <router-view></router-view>
         </a-layout-content>
-        <!--        <a-layout-footer class="footer"></a-layout-footer>-->
+                <a-layout-footer class="footer"></a-layout-footer>
     </a-layout>
 </template>
 
 <script>
 import {optionsNav} from "@/options/nav";
 import SearchWallpaper from "@/components/form/searchWallpaper";
-import FilterSetting from "@/components/dialog/filterSetting";
+import FilterSetting from "@/components/setting/filterSetting";
+import {mapGetters} from "vuex";
 
 export default {
     name: "ResultLayout",
@@ -46,9 +47,11 @@ export default {
         }
     },
     computed: {
+        ...mapGetters("wallpaper", ["filterSetting", "customSetting"]),
         systemName() {
-            // eslint-disable-next-line no-undef
-            return customConfig.systemName || process.env.VUE_APP_SYSTEM_NAME
+            const {customSetting} = this;
+            if (customSetting && customSetting.systemName) return customSetting.systemName;
+            return process.env.VUE_APP_SYSTEM_NAME
         },
         isSearchResultUrl() {
             const {path} = this.$route;

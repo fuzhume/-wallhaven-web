@@ -10,7 +10,7 @@ export default {
         const {meta} = this.$route;
         const option = {
             title: process.env.VUE_APP_SYSTEM_VERSION,
-            titleTemplate: `%s | ${process.env.VUE_APP_SYSTEM_NAME}`
+            titleTemplate: `%s | ${process.env.VUE_APP_SYSTEM_NAME} v${process.env.VUE_APP_SYSTEM_VERSION}`
         }
 
         if (meta && meta.title) option.title = meta.title;

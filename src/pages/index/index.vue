@@ -1,12 +1,16 @@
 <template>
-    <div class="index">
+    <div :class="['index',theme]" :style="{backgroundImage: indexBgImage ? `url(${indexBgImage})` : null}">
+        <custom-setting ref="custom-setting"></custom-setting>
         <filter-setting ref="filter-setting" layout="index"></filter-setting>
         <div class="toolbar">
+            <a-tooltip title="自定义配置" placement="right">
+                <a-button icon="setting" @click="$refs['custom-setting'].show()"></a-button>
+            </a-tooltip>
             <a-tooltip title="过滤配置" placement="right">
                 <a-button icon="search" @click="$refs['filter-setting'].show()"></a-button>
             </a-tooltip>
         </div>
-        <div class="wrapper">
+        <div class="wrapper" :style="{transform: `scale(${indexScaleRatio})`}">
             <h1 class="logo">{{ systemName }}</h1>
             <div class="form">
                 <search-wallpaper size="large"></search-wallpaper>
@@ -27,17 +31,33 @@
 import {optionsNav} from "@/options/nav";
 import SearchWallpaper from "@/components/form/searchWallpaper";
 import {mapGetters} from "vuex";
-import FilterSetting from "@/components/dialog/filterSetting";
+import FilterSetting from "@/components/setting/filterSetting";
+import CustomSetting from "@/components/setting/customSetting";
 
 export default {
     name: "index",
-    components: {FilterSetting, SearchWallpaper},
+    components: {CustomSetting, FilterSetting, SearchWallpaper},
     computed: {
-        ...mapGetters("wallpaper", ["settingSystem"]),
-
+        ...mapGetters("wallpaper", ["filterSetting", "customSetting"]),
         systemName() {
-            // eslint-disable-next-line no-undef
-            return customConfig.systemName || process.env.VUE_APP_SYSTEM_NAME
+            const {customSetting} = this;
+            if (customSetting && customSetting.systemName) return customSetting.systemName;
+            return process.env.VUE_APP_SYSTEM_NAME
+        },
+        theme() {
+            const {customSetting} = this;
+            if (customSetting && customSetting.theme) return customSetting.theme;
+            return "theme-default";
+        },
+        indexScaleRatio() {
+            const {customSetting} = this;
+            if (customSetting && customSetting.indexScaleRatio) return customSetting.indexScaleRatio;
+            return 1.5;
+        },
+        indexBgImage() {
+            const {customSetting} = this;
+            if (customSetting && customSetting.indexBgImage) return customSetting.indexBgImage;
+            return null;
         }
     },
     data() {
@@ -58,6 +78,30 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+
+    &.theme-default {
+        color: #000000;
+        background-color: #ffffff;
+    }
+
+    &.theme-white {
+        color: #ffffff;
+        background-color: #000000;
+        background-image: linear-gradient(to bottom, #333, #222);
+        text-shadow: 0 1px 1px #000000;
+
+        .wrapper {
+            .logo {
+                color: #ffffff;
+            }
+
+            .type-list {
+                .type {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
 
     .toolbar {
         display: flex;
@@ -87,7 +131,6 @@ export default {
         align-items: center;
         justify-content: center;
         transition: .2s;
-        transform: scale(1.5);
 
         .logo {
             font-size: 30px;

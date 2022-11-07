@@ -16,7 +16,6 @@
             document.body.scrollTop = 0;  //非ie
         }
     </script>
-    <script src="config.js"></script>
     <title><%= process.env.VUE_APP_NAME %></title>
     <!-- require cdn assets css -->
     <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>

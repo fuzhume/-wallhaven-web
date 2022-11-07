@@ -1,40 +1,39 @@
 export default {
     namespaced: true,
     state: {
-        config: null,
-        settingFilter: null,
-        settingSystem: null
+        filterSetting: null,
+        customSetting: null,
     },
     mutations: {
-        setSettingFilter(state, settingFilter) {
-            if (settingFilter) {
-                window.localStorage.setItem(process.env.VUE_APP_SETTING_FILTER, JSON.stringify(settingFilter));
+        setFilterSetting(state, filterSetting) {
+            if (filterSetting) {
+                window.localStorage.setItem(process.env.VUE_APP_FILTER_SETTING_KEY, JSON.stringify(filterSetting));
             } else {
-                window.localStorage.removeItem(process.env.VUE_APP_SETTING_FILTER);
+                window.localStorage.removeItem(process.env.VUE_APP_FILTER_SETTING_KEY);
             }
-            state.settingFilter = settingFilter;
+            state.filterSetting = filterSetting;
         },
-        setSettingSystem(state, settingSystem) {
-            if (settingSystem) {
-                window.localStorage.setItem(process.env.VUE_APP_SETTING_SYSTEM, JSON.stringify(settingSystem));
+        setCustomSetting(state, customSetting) {
+            if (customSetting) {
+                window.localStorage.setItem(process.env.VUE_APP_CUSTOM_SETTING_KEY, JSON.stringify(customSetting));
             } else {
-                window.localStorage.removeItem(process.env.VUE_APP_SETTING_SYSTEM);
+                window.localStorage.removeItem(process.env.VUE_APP_CUSTOM_SETTING_KEY);
             }
-            state.settingSystem = settingSystem;
+            state.customSetting = customSetting;
         }
     },
     getters: {
-        settingFilter(state) {
-            if (!state.settingFilter) {
-                state.settingFilter = JSON.parse(window.localStorage.getItem(process.env.VUE_APP_SETTING_FILTER));
+        filterSetting(state) {
+            if (!state.filterSetting) {
+                state.filterSetting = JSON.parse(window.localStorage.getItem(process.env.VUE_APP_FILTER_SETTING_KEY));
             }
-            return state.settingFilter;
+            return state.filterSetting;
         },
-        settingSystem(state) {
-            if (!state.settingSystem) {
-                state.settingSystem = JSON.parse(window.localStorage.getItem(process.env.VUE_APP_SETTING_SYSTEM));
+        customSetting(state) {
+            if (!state.customSetting) {
+                state.customSetting = JSON.parse(window.localStorage.getItem(process.env.VUE_APP_CUSTOM_SETTING_KEY));
             }
-            return state.settingSystem || {indexScaleRatio: 1.5};
+            return state.customSetting;
         },
     }
 }

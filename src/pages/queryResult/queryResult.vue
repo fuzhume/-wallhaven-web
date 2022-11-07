@@ -22,6 +22,7 @@
                             <a-menu-item key="handlePreviewImage">查看壁纸</a-menu-item>
                             <a-menu-item key="copyImageUrl">复制地址</a-menu-item>
                             <a-menu-item key="openNewWindow">新窗口打开</a-menu-item>
+                            <a-menu-item key="setIndexBgImage">设为背景图</a-menu-item>
                         </a-menu>
                     </a-dropdown>
                 </a-col>
@@ -52,12 +53,12 @@ export default {
         }
     },
     created() {
-        const {settingFilter} = this;
-        if (settingFilter) this.filterWhere = settingFilter;
+        const {filterSetting} = this;
+        if (filterSetting) this.filterWhere = filterSetting;
 
         window.addEventListener('scroll', this.listenBottomOut);
         this.$bus.$on("reload-page", this.reload);
-        this.$bus.$on("filter-wallpaper", this.handleFilterWallpaper);
+        this.$bus.$on("save-config", this.handleFilterWallpaper);
 
         this.reload();
     },
@@ -65,10 +66,10 @@ export default {
         window.removeEventListener('scroll', this.listenBottomOut, false);
 
         this.$bus.$off("reload-page", this.reload);
-        this.$bus.$off("filter-wallpaper", this.handleFilterWallpaper);
+        this.$bus.$off("save-config", this.handleFilterWallpaper);
     },
     computed: {
-        ...mapGetters("wallpaper", ["settingFilter", "settingSystem"]),
+        ...mapGetters("wallpaper", ["filterSetting", "customSetting"]),
         formatFilterWhere() {
             const {filterWhere} = this;
             const query = {};
@@ -155,7 +156,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations("wallpaper", ["setSettingSystem"]),
+        ...mapMutations("wallpaper", ["setFilterSetting", "setCustomSetting"]),
         /**
          * 更新过滤条件
          * @param data
@@ -190,6 +191,22 @@ export default {
                 case "copyImageUrl":
                     this.copyImageUrl(url);
                     break;
+                case "setIndexBgImage":
+                    this.setIndexBgImage(url);
+                    break;
+            }
+        },
+        /**
+         * 设置主页背景图
+         * @param url
+         * @returns {Promise<void>}
+         */
+        async setIndexBgImage(url) {
+            const imgUrl = await this.getImageUrl(url);
+            if (imgUrl) {
+                const {customSetting} = this;
+                customSetting.indexBgImage = imgUrl;
+                this.setCustomSetting(customSetting);
             }
         },
         /**
@@ -329,7 +346,7 @@ export default {
                     nprogress.end();
                     this.loading = false;
                 })
-            }).catch(()=>{
+            }).catch(() => {
                 this.finished = true;
             }).finally(() => {
                 nprogress.end();
