@@ -69,8 +69,7 @@
 <script>
 import {optionsCategory, optionsDirection, optionsOrder, optionsPurity, optionsRatio, optionsSize, optionsSizeType, optionsSorting, optionsThemeColor} from "@/options/query";
 import {mapGetters, mapMutations} from "vuex";
-
-const {width, height} = window.screen;
+import {defaultFilterSetting} from "@/config/config";
 
 export default {
     name: "filterSetting",
@@ -103,25 +102,7 @@ export default {
     methods: {
         ...mapMutations("wallpaper", ["setFilterSetting"]),
         reset() {
-            this.form = {
-                order: "desc",
-                sorting: "favorites",
-                categories: [100, 10],
-                purity: [100],
-                size: 1,
-                ratio: 1,
-                color: "",
-                size_type: 1,
-                direction: "landscape",
-                customSize: {
-                    width,
-                    height
-                },
-                customRatio: {
-                    x: 16,
-                    y: 9
-                }
-            };
+            this.form = defaultFilterSetting;
         },
         show() {
             this.reset();

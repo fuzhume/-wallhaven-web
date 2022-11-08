@@ -29,6 +29,7 @@
 <script>
 import {mapGetters, mapMutations} from "vuex";
 import {optionsTheme} from "@/options/customSetting";
+import {defaultCustomSetting} from "@/config/config";
 
 export default {
     name: "customSetting",
@@ -56,13 +57,7 @@ export default {
     methods: {
         ...mapMutations("wallpaper", ["setCustomSetting"]),
         reset() {
-            this.form = {
-                overwriteApiUrl: process.env.VUE_APP_API_BASE_URL,
-                theme: "theme-default",
-                indexScaleRatio: 1.5,
-                systemName: process.env.VUE_APP_SYSTEM_NAME,
-                indexBgImage: ""
-            };
+            this.form = defaultCustomSetting;
         },
         show() {
             this.reset();

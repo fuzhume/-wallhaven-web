@@ -204,9 +204,11 @@ export default {
         async setIndexBgImage(url) {
             const imgUrl = await this.getImageUrl(url);
             if (imgUrl) {
-                const {customSetting} = this;
+                let {customSetting} = this;
+                if (!customSetting) customSetting = {};
                 customSetting.indexBgImage = imgUrl;
                 this.setCustomSetting(customSetting);
+                this.$message.success("设置成功！");
             }
         },
         /**

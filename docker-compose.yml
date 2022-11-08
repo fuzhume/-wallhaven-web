@@ -7,7 +7,7 @@ services:
       - "8360:8360"
     restart: always
   wallhaven-web:
-    image: fuzhume/wallhaven-web:v1.0.1
+    image: fuzhume/wallhaven-web:v1.0.3
     container_name: wallhaven-web
     ports:
       - "8800:80"

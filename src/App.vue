@@ -1,11 +1,20 @@
 <template>
-    <div id="app" @contextmenu.prevent>
-        <router-view></router-view>
-    </div>
+    <a-config-provider :locale="locale">
+        <div id="app" @contextmenu.prevent>
+            <router-view></router-view>
+        </div>
+    </a-config-provider>
 </template>
 
 <script>
+import zh_CN from "ant-design-vue/es/locale/zh_CN";
+
 export default {
+    data(){
+        return {
+            locale: zh_CN
+        }
+    },
     metaInfo() {
         const {meta} = this.$route;
         const option = {

@@ -3,11 +3,20 @@
         <custom-setting ref="custom-setting"></custom-setting>
         <filter-setting ref="filter-setting" layout="index"></filter-setting>
         <div class="toolbar">
+            <a-tooltip title="作者主页" placement="right">
+                <a-button icon="home" @click="handleToMain"></a-button>
+            </a-tooltip>
             <a-tooltip title="自定义配置" placement="right">
                 <a-button icon="setting" @click="$refs['custom-setting'].show()"></a-button>
             </a-tooltip>
             <a-tooltip title="过滤配置" placement="right">
                 <a-button icon="search" @click="$refs['filter-setting'].show()"></a-button>
+            </a-tooltip>
+            <a-tooltip title="恢复出厂值" placement="right">
+                <a-button icon="delete" @click="handleRemoveConfig"></a-button>
+            </a-tooltip>
+            <a-tooltip :title="`当前版本：v${version}`" placement="right">
+                <a-button icon="question"></a-button>
             </a-tooltip>
         </div>
         <div class="wrapper" :style="{transform: `scale(${indexScaleRatio})`}">
@@ -30,7 +39,7 @@
 <script>
 import {optionsNav} from "@/options/nav";
 import SearchWallpaper from "@/components/form/searchWallpaper";
-import {mapGetters} from "vuex";
+import {mapGetters, mapMutations, mapState} from "vuex";
 import FilterSetting from "@/components/setting/filterSetting";
 import CustomSetting from "@/components/setting/customSetting";
 
@@ -38,6 +47,7 @@ export default {
     name: "index",
     components: {CustomSetting, FilterSetting, SearchWallpaper},
     computed: {
+        ...mapState(["version"]),
         ...mapGetters("wallpaper", ["filterSetting", "customSetting"]),
         systemName() {
             const {customSetting} = this;
@@ -65,6 +75,24 @@ export default {
             optionsNav
         }
     },
+    methods: {
+        ...mapMutations("wallpaper", ["setCustomSetting", "setFilterSetting"]),
+        handleRemoveConfig() {
+            this.$confirm({
+                title: "删除确认",
+                content: "是否要删除所有个性化配置？",
+                onOk: () => {
+                    this.setCustomSetting(null);
+                    this.setFilterSetting(null);
+                    this.$message.success("删除成功！");
+                }
+            })
+        },
+        handleToMain() {
+            const url = process.env.VUE_APP_AUTHOR_HOME;
+            if (url) window.open(url);
+        }
+    }
 }
 </script>
 
